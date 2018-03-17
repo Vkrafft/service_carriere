@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+<div id="fil_d_actualite">
+    {% for evenement in evenements %}
+    <div class="evenement">
+        <h3>{{ evenement.titre }}</h3>
+        <p>{{ evenement.contenu|truncatewords_html:80 }}</p>
+        <p><a href="{% url 'voir' evenement.id %}">En savoir plus</a></p>
+    </div>
+    {% empty %}
+    <p>Aucun évènement.</p>
+    {% endfor %}
+
+
+</div>      
+{% endblock %}
+
+

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}inscription_entreprise{% endblock %}
+{% block content %}
+<form action="{% url 'inscription_entreprise' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="s'inscrire" class="bouton" />
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Voir evenement{% endblock %}
+{% block content %}
+<h1>{{ evenement.type_evenement }}</h1>
+<h2>{{ evenement.titre }} <span class="small"> à {{ evenement.lieu }}</span></h2>
+<p class="infos">Proposé par {{ evenement.auteur }}, le {{ evenement.date|date:"DATE_FORMAT" }}</p>
+<div class="contenu">{{ evenement.description|linebreaks }}</div>
+<div class="nb_places">{{evenement.nombre_place}} places disponibles !</div>
+<div class="image"> <img src="{{ evenement.image.url }}"/></div>
+{% endblock %}

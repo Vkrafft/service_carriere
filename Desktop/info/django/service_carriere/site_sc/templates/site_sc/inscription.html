@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}inscription{% endblock %}
+{% block content %}
+<form action="{% url 'inscription' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="valider" class="bouton" />
+</form>
+
+{% if test1 %}
+	<p>Vous avez sélectionné Etudiant, si ce choix est correct,<a href="{% url 'inscription_etudiant' %}"> cliquez ici</a> pour continuer</p>
+{% elif test2 %}
+	<p>Vous avez sélectionné Entreprise, si ce choix est correct, cliquez <a href="{% url 'inscription_entreprise'%}"> ici</a> pour continuer</p>
+{% elif test3 %}
+	<p>Vous avez sélectionné Administration, si ce choix est correct, cliquez <a href="{% url 'inscription_administration' %}"> ici</a> pour continuer</p>
+{% endif %}
+{% endblock %}

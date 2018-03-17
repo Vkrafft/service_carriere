@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>{% block title %}Base{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+</head>
+
+<body>
+	<div id="bloc_page">
+		<header>
+			<h1>Service Carrière Metz</h1>
+			<div id="liencompte">
+				<a href="{% url 'accueil' %}">Accueil</a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'deconnexion' %}">Deconnexion</a>
+				{% else %}
+				<a href="{% url 'connexion' %}">Connexion</a>
+				<a href="{% url 'inscription' %}">Inscription</a>
+				{% endif %}
+			</div>
+		</header>
+
+		<div id="banniere">
+			<img src="{% static 'css/images/bannière.jpg' %}" alt="banniere" class="banniere">
+		</div>
+
+		<div id="page">
+
+			<nav>
+				<ul>
+					<li><div id="agenda">
+						<a href="{% url 'agenda' %}">Accéder à l'agenda</a>
+					</div></li>
+					{% if user.is_authenticated %}
+					<li><a href="{% url 'gestion_profil' %}">Gestion du profil</a></li>
+					{% if user.qualité == '1' %}
+					<!-- si l'utilisateur a son objet qualité sur 1 donc s'il est un étudiant-->
+					<li><a href="{% url 'recherche_stage' %}">Recherche de stage</a></li>
+					<li><a href="{% url 'recherche_entreprise' %}">Recherche d'entreprise</a></li>
+					{% elif user.qualité == '2' %}
+					<!-- si l'utilisateur a son objet qualité sur 2 donc s'il est une entreprise-->
+					<li><a href="{% url 'proposer_stage' %}">Proposer un stage</a></li>
+					<li><a href="{% url 'recherche_etudiant' %}">Rechercher un profil d'étudiant</a></li>
+					<li><a href="{% url 'proposer_evenement' %}">Proposer un évènement</a></li>
+					{% elif user.qualité == '3' %}
+					<!-- si l'utilisateur a son objet qualité sur 3 donc s'il est une institution-->
+					<li><a href="{% url 'proposer_evenement' %}">Proposer un évènement</a></li>
+					<li><a href="{% url 'recherche_entreprise' %}">Recherche d'entreprise</a></li>
+					<li><a href="{% url 'recherche_etudiant' %}">Rechercher un profil d'étudiant</a></li>
+					{% endif %}
+					{% endif %}
+				</ul> 
+			</nav>
+			
+			<section id="content">
+	       {% block content %}{% endblock %}
+	   		</section>
+
+			
+			<aside>
+				<div id="stickman">
+					<p ><img src="{% static 'css/images/stickman_thinking.jpg' %}" alt="stickman" /></p>
+				</div>
+				<div id="question">
+					<form method="" action="">
+						<p>
+							Quel type d'événement voudriez-vous voir prochainement ? <br>
+							<input type="checkbox" name="cafe_rencontre" id="cafe_rencontre"> <label for="cafe_rencontre">Café-Rencontre</label> <br>
+							<input type="checkbox" name="visite_d_entreprise" id="visite_d_entreprise"> <label for="visite_d_entreprise">Visite d'entreprise</label><br>
+							<input type="checkbox" name="conference" id="conference"> <label for="conference">Conférence</label><br>
+							<input type="submit" value="Envoyer" class="bouton" />
+						</p>
+					</form>
+				</div>
+			</aside>
+			
+		</div>
+
+
+
+		<footer>
+			<div id="logo_mail">
+				<p ><img src="{% static 'css/images/mail.png' %}" alt="mail" /></p>
+			</div>
+			<div id="contact">
+				<p>
+					<a href="mailto:service.carriere@supelec.fr">Envoyez-nous un e-mail !</a>
+				</p>
+			</div>
+
+		</footer>
+	</div>
+</body>
+</html>
